@@ -141,13 +141,11 @@ def _is_valid_algorithm(algo: str) -> bool:
     """
     if algo is None:
         print('No se ha especificado un algoritmo de hash.')
-        
         return False
     
     if algo not in ['md5', 'sha1', 'sha256']:
         print(f"El algoritmo '{algo}' no es válido.", file=sys.stderr)
         print(f"Algoritmos válidos: {hashlib.algorithms_guaranteed}.", file=sys.stderr)
-        
         return False
     
     return True
@@ -164,12 +162,10 @@ def _is_valid_wordlist(wordlist: str) -> bool:
     """
     if wordlist is None:
         print('No se ha especificado un fichero de palabras.', file=sys.stderr)
-        
         return False
     
     if not os.path.isfile(wordlist):
         print(f"El fichero '{wordlist}' no existe.", file=sys.stderr)
-        
         return False
     
     return True
