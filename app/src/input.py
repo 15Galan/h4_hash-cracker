@@ -97,8 +97,11 @@ def __is_valid_hashlist(hashes: list[str]) -> bool:
         print('No se ha especificado ningún hash.', file=sys.stderr)
         return False
 
-    if any(__is_valid_hash(hash) for hash in hashes):
-        return True
+    if not any(__is_valid_hash(hash) for hash in hashes):
+        print('No hay ningún fichero válido en la lista proporcionada.', file=sys.stderr)
+        return False
+
+    return True
 
 
 def __is_valid_hashfile(file: str) -> bool:
@@ -121,8 +124,11 @@ def __is_valid_hashfile(file: str) -> bool:
     with open(file, 'r') as f:
         hashes = f.read().splitlines()
 
-    if any(__is_valid_hash(hash) for hash in hashes):
-        return True
+    if not any(__is_valid_hash(hash) for hash in hashes):
+        print('No hay ningún hash válido en el fichero proporcionado.', file=sys.stderr)
+        return False
+
+    return True
     
     
 def __is_valid_algorithm(algo: str) -> bool:
