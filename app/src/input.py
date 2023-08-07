@@ -18,7 +18,7 @@ def __get_input():
     # Argumentos del programa
     parser.add_argument('-hl', '--hashlist', metavar='lista de hashes', type=str, nargs='+',
                         help='Lista de hashes para crackear.')
-    parser.add_argument('-hf', '--hashfile', metavar='fichero de hashes', type=str,
+    parser.add_argument('-hf', '--hashfile', metavar='fichero de hashes', type=os.path.abspath,
                         help='Fichero con hashes para crackear.')
     parser.add_argument('-ag', '--algorithm', metavar='algoritmo', type=str,
                         help='Algoritmo del hash a crackear.')
