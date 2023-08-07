@@ -26,6 +26,14 @@ if __name__ == '__main__':
     """
     Punto de entrada al ejecutarse como programa.
     """
-    main()
+    try:
+        main()
+
+    except KeyboardInterrupt:
+        pass
+
+    except Exception as e:
+        print(e)
+        exit(1)
 
     exit(0)
