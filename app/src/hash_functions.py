@@ -53,6 +53,6 @@ def crack(hashes: list, algorithm: str, wordlist: str) -> dict[str, str]:
             print(f'{hash} : {cracks[hash]}')
 
         else:
-            print(f'{hash} : no encontrado')
+            print(f'{hash} * no encontrado')
 
     return cracks
