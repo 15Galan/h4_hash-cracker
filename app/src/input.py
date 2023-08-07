@@ -9,7 +9,7 @@ import sys
 import os
 
 
-def __get_input():
+def _get_input():
     """
     Obtiene los valores para los argumentos de entrada del programa.
     """
@@ -37,13 +37,13 @@ def get_args():
 
     :return:    Diccionario con los argumentos de entrada del programa.
     """
-    args = __get_input()
+    args = _get_input()
 
-    if not __valid_args(args):
+    if not _valid_args(args):
         exit(1)
 
     # Procesar todos los hashes de los argumentos
-    (good, bad) = separate_hashes(__merge_hashes(args.hashlist, args.hashfile))
+    (good, bad) = separate_hashes(_merge_hashes(args.hashlist, args.hashfile))
 
     return {'hashes': good,
             'algorithms': args.algorithm,
@@ -51,19 +51,19 @@ def get_args():
             'invalid_hashes': bad}
 
 
-def __valid_args(args):
+def _valid_args(args):
     """
     Comprueba los argumentos de entrada del programa.
 
     :param args:    Argumentos de entrada del programa.
     """
-    return ((__is_valid_hashlist(args.hashlist)
-            or __is_valid_hashfile(args.hashfile))
-            and __is_valid_algorithm(args.algorithm)
-            and __is_valid_wordlist(args.wordlist))
+    return ((_is_valid_hashlist(args.hashlist)
+             or _is_valid_hashfile(args.hashfile))
+            and _is_valid_algorithm(args.algorithm)
+            and _is_valid_wordlist(args.wordlist))
 
 
-def __is_valid_hash(hash: str) -> bool:
+def _is_valid_hash(hash: str) -> bool:
     """
     Comprueba si un hash es válido.
     Se considera válido
@@ -83,7 +83,7 @@ def __is_valid_hash(hash: str) -> bool:
     return True
 
 
-def __is_valid_hashlist(hashes: list[str]) -> bool:
+def _is_valid_hashlist(hashes: list[str]) -> bool:
     """
     Comprueba si una lista de hashes contiene al menos un hash válido.
 
@@ -96,14 +96,14 @@ def __is_valid_hashlist(hashes: list[str]) -> bool:
         print('No se ha especificado ningún hash.', file=sys.stderr)
         return False
 
-    if not any(__is_valid_hash(hash) for hash in hashes):
+    if not any(_is_valid_hash(hash) for hash in hashes):
         print('No hay ningún fichero válido en la lista proporcionada.', file=sys.stderr)
         return False
 
     return True
 
 
-def __is_valid_hashfile(file: str) -> bool:
+def _is_valid_hashfile(file: str) -> bool:
     """
     Comprueba si un fichero con hashes contiene al menos un hash válido.
 
@@ -123,14 +123,14 @@ def __is_valid_hashfile(file: str) -> bool:
     with open(file, 'r') as f:
         hashes = f.read().splitlines()
 
-    if not any(__is_valid_hash(hash) for hash in hashes):
+    if not any(_is_valid_hash(hash) for hash in hashes):
         print('No hay ningún hash válido en el fichero proporcionado.', file=sys.stderr)
         return False
 
     return True
     
     
-def __is_valid_algorithm(algo: str) -> bool:
+def _is_valid_algorithm(algo: str) -> bool:
     """
     Comprueba si un algoritmo de hash es válido.
 
@@ -153,7 +153,7 @@ def __is_valid_algorithm(algo: str) -> bool:
     return True
 
 
-def __is_valid_wordlist(wordlist: str) -> bool:
+def _is_valid_wordlist(wordlist: str) -> bool:
     """
     Comprueba si un fichero de palabras es válido.
 
@@ -175,7 +175,7 @@ def __is_valid_wordlist(wordlist: str) -> bool:
     return True
 
 
-def __merge_hashes(hashlist: list[str], hashfile: str) -> set[str]:
+def _merge_hashes(hashlist: list[str], hashfile: str) -> set[str]:
     """
     Combina los hashes de una lista literal con los de un fichero.
 
@@ -201,7 +201,7 @@ def separate_hashes(hashes: set[str]) -> (set[str], set[str]):
 
     :return:    Tupla con 2 conjuntos de hashes: válidos e inválidos.
     """
-    valids = [hash for hash in hashes if __is_valid_hash(hash)]
+    valids = [hash for hash in hashes if _is_valid_hash(hash)]
     invalids = hashes.difference(valids)
 
     return valids, invalids
