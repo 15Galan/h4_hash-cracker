@@ -6,33 +6,6 @@ import hashlib
 import sys
 
 
-def hash_md5(string: str) -> str:
-    """
-    Calcula el hash de una cadena usando el algoritmo MD5.
-
-    :param string: Cadena a la que se le calculará el hash.
-    """
-    return hashlib.md5(string.encode('utf-8')).hexdigest()
-
-
-def hash_sha1(string: str) -> str:
-    """
-    Calcula el hash de una cadena usando el algoritmo SHA1.
-
-    :param string: Cadena a la que se le calculará el hash.
-    """
-    return hashlib.sha1(string.encode('utf-8')).hexdigest()
-
-
-def hash_sha256(string: str) -> str:
-    """
-    Calcula el hash de una cadena usando el algoritmo SHA256.
-
-    :param string: Cadena a la que se le calculará el hash.
-    """
-    return hashlib.sha256(string.encode('utf-8')).hexdigest()
-
-
 def hash_any(string: str, algo: str) -> str:
     """
     Calcula el hash de una cadena usando un algoritmo determinado.
