@@ -34,9 +34,13 @@ def get_args():
     if not __valid_args(args):
         exit(1)
 
-    return {'hashes': __merge_hashes(args.hashlist, args.hashfile),
-            'algorithm': args.algorithm,
-            'wordlist': args.wordlist}
+    # Procesar todos los hashes de los argumentos
+    (good, bad) = separate_hashes(__merge_hashes(args.hashlist, args.hashfile))
+
+    return {'hashes': good,
+            'algorithms': args.algorithm,
+            'words': args.wordlist,
+            'invalid_hashes': bad}
 
 
 def __valid_args(args):
@@ -157,3 +161,17 @@ def __merge_hashes(hashlist: list[str], hashfile: str) -> set[str]:
             file_hashes = set(f.read().splitlines())
 
     return list_hashes.union(file_hashes)
+
+
+def separate_hashes(hashes: set[str]) -> (set[str], set[str]):
+    """
+    Filtra los hashes válidos de un conjunto de hashes.
+
+    :param hashes: Hashes a filtrar.
+
+    :return:    Tupla con 2 conjuntos de hashes: válidos e inválidos.
+    """
+    valids = [hash for hash in hashes if __is_valid_hash(hash)]
+    invalids = hashes.difference(valids)
+
+    return valids, invalids
