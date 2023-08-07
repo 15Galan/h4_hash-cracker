@@ -11,7 +11,7 @@ def main():
     """
     args = input.get_args()
 
-    cracked = hash_functions.crack(args['hashes'], args['algorithm'], args['wordlist'])
+    cracked = hash_functions.crack(args['hashes'], args['algorithms'], args['words'])
 
     if cracked is None:
         print('No se encontró un hash para la lista de palabras.')
