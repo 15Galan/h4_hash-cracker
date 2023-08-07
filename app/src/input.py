@@ -51,6 +51,24 @@ def __valid_args(args):
             and __is_valid_wordlist(args.wordlist))
 
 
+def __is_valid_hash(hash: str) -> bool:
+    """
+    Comprueba si un hash es válido.
+    Se considera válido
+
+    :param hash: Hash a comprobar.
+    """
+    # Longitudes de los hashes garantizados (hashlib.algorithms_guaranteed)
+    guaranteed_len = [32, 40, 48, 56, 64, 96, 128]
+    hexademical = '0123456789abcdefABCDEF'
+
+    if len(hash) not in guaranteed_len and not all(c in hexademical for c in hash):
+        print(f"{hash} : inválido", file=sys.stderr)
+        return False
+
+    return True
+
+
 def __is_valid_hashlist(hashes: list[str]) -> bool:
     """
     Comprueba si una lista de hashes contiene al menos un hash válido.
@@ -58,26 +76,11 @@ def __is_valid_hashlist(hashes: list[str]) -> bool:
     :param hashes: Lista de hashes a comprobar.
     """
     if hashes is None:
-        print('No se ha especificado ningún hash.')
-
+        print('No se ha especificado ningún hash.', file=sys.stderr)
         return False
-    
-    # Ligado a la 2ª comprobación de '__is_valid_algorithm()'
-    hashes_aux = hashes.copy()
 
-    for hash in hashes_aux:
-        if len(hash) != 32 and len(hash) != 40 and len(hash) != 64:
-            print(f"{hash} : inválido", file=sys.stderr)
-
-            hashes.remove(hash)
-
-    if 0 < len(hashes):
+    if any(__is_valid_hash(hash) for hash in hashes):
         return True
-
-    else:
-        print('\nNingún hash es válido.', file=sys.stderr)
-
-        return False
 
 
 def __is_valid_hashfile(file: str) -> bool:
@@ -87,16 +90,18 @@ def __is_valid_hashfile(file: str) -> bool:
     :param hash: Hash a comprobar.
     """
     if file is None:
-        print('No se ha especificado un fichero de hashes.')
-
+        print('No se ha especificado un fichero de hashes.', file=sys.stderr)
         return False
 
     if not os.path.isfile(file):
         print(f"El fichero '{file}' no existe.", file=sys.stderr)
-
         return False
-    
-    return True
+
+    with open(file, 'r') as f:
+        hashes = f.read().splitlines()
+
+    if any(__is_valid_hash(hash) for hash in hashes):
+        return True
     
     
 def __is_valid_algorithm(algo: str) -> bool:
