@@ -42,13 +42,15 @@ def get_args():
     if not _valid_args(args):
         exit(1)
 
-    # Procesar todos los hashes de los argumentos
-    (good, bad) = separate_hashes(_merge_hashes(args.hashlist, args.hashfile))
+    # Procesar todos los hashes y algoritmos de los argumentos
+    good_hashes, bad_hashes = separate_hashes(_merge_hashes(args.hashlist, args.hashfile))
+    good_algorithms, bad_algorithms = separate_algorithms(args.algolist)
 
-    return {'hashes': good,
-            'algorithms': args.algorithm,
-            'words': args.wordlist,
-            'invalid_hashes': bad}
+    return {'hashes_ok': good_hashes,
+            'hashes_ko': bad_hashes,
+            'algorithms_ok': good_algorithms,
+            'algorithms_ko': bad_algorithms,
+            'words': args.wordlist}
 
 
 def _valid_args(args):
@@ -212,5 +214,19 @@ def separate_hashes(hashes: set[str]) -> (set[str], set[str]):
     """
     valids = [hash for hash in hashes if _is_valid_hash(hash)]
     invalids = hashes.difference(valids)
+
+    return valids, invalids
+
+
+def separate_algorithms(algorithms: list[str]) -> (set[str], set[str]):
+    """
+    Filtra los algoritmos válidos de una lista de algoritmos.
+
+    :param algorithms:  Algoritmos a filtrar.
+
+    :return:    Tupla con 2 conjuntos de algoritmos: válidos e inválidos.
+    """
+    valids = set([a for a in algorithms if _is_valid_algorithm(a)])
+    invalids = set(algorithms).difference(valids)
 
     return valids, invalids
