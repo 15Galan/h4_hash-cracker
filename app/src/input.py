@@ -16,9 +16,9 @@ def __get_input():
     parser = argparse.ArgumentParser(description='Cracker simple de hashes.')
     
     # Argumentos del programa
-    parser.add_argument('-hl', '--hashlist', metavar='lista de hashes', type=str, nargs='+',
+    parser.add_argument('-hl', '--hashlist', metavar='hash', type=str, nargs='+',
                         help='Lista de hashes para crackear.')
-    parser.add_argument('-hf', '--hashfile', metavar='fichero de hashes', type=os.path.abspath,
+    parser.add_argument('-hf', '--hashfile', metavar='hashfile', type=os.path.abspath,
                         help='Fichero con hashes para crackear.')
     parser.add_argument('-ag', '--algorithm', metavar='algoritmo', type=str,
                         help='Algoritmo del hash a crackear.')
