@@ -145,16 +145,10 @@ def __merge_hashes(hashlist: list[str], hashfile: str) -> set[str]:
     :param hashlist:    Lista de hashes.
     :param hashfile:    Fichero de hashes.
     """
-    if hashlist is None:
-        hashlist = []
+    if hashlist is not None and hashfile is not None:
+        list_hashes = set(hashlist)
 
-    if hashfile is None:
-        return hashlist
+        with open(hashfile, 'r') as f:
+            file_hashes = set(f.read().splitlines())
 
-    with open(hashfile, 'r') as f:
-        hashes = [line.strip() for line in f]
-
-    for hash in hashes:
-        hashlist.append(hash)
-
-    return hashlist
+    return list_hashes.union(file_hashes)
