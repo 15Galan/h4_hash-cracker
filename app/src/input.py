@@ -20,8 +20,8 @@ def _get_input():
                         help='Lista de hashes para crackear.')
     parser.add_argument('-hf', '--hashfile', metavar='hashfile', type=os.path.abspath,
                         help='Fichero con hashes para crackear.')
-    parser.add_argument('-ag', '--algorithm', metavar='algoritmo', type=str,
-                        help='Algoritmo del hash a crackear.')
+    parser.add_argument('-ag', '--algolist', metavar='algoritmo', type=str, nargs='+',
+                        help='Algoritmos para crackear el hash.')
     parser.add_argument('-wl', '--wordlist', metavar='palabras', type=os.path.abspath,
                         help='Fichero con posibles valores de un hash.')
     
@@ -59,7 +59,7 @@ def _valid_args(args):
     """
     return ((_is_valid_hashlist(args.hashlist)
              or _is_valid_hashfile(args.hashfile))
-            and _is_valid_algorithm(args.algorithm)
+            and _is_valid_algolist(args.algolist)
             and _is_valid_wordlist(args.wordlist))
 
 
@@ -81,6 +81,20 @@ def _is_valid_hash(hash: str) -> bool:
         return False
 
     return True
+
+
+def _is_valid_algorithm(algorithm: str) -> bool:
+    """
+    Comprueba si un algoritmo de hash es válido, siendo válido si está
+    garantizado por hashlib.
+
+    :param algorithm:   Algoritmo de hash.
+
+    :return:    True si el algoritmo es válido;
+                False en caso contrario.
+    """
+    # Comparación en minúsculas para evitar errores
+    return algorithm.lower() in [a.lower() for a in hashlib.algorithms_guaranteed]
 
 
 def _is_valid_hashlist(hashes: list[str]) -> bool:
@@ -130,22 +144,21 @@ def _is_valid_hashfile(file: str) -> bool:
     return True
     
     
-def _is_valid_algorithm(algo: str) -> bool:
+def _is_valid_algolist(algolist: list[str]) -> bool:
     """
-    Comprueba si un algoritmo de hash es válido.
+    Comprueba si una lista de algoritmos de hash contiene al menos un algoritmo válido.
 
-    :param algo: Algoritmo de hash a comprobar.
+    :param algolist:    Lista de algoritmos.
 
-    :return:    True si el algoritmo es válido;
+    :return:    True si la lista contiene al menos un algoritmo válido;
                 False en caso contrario.
     """
-    if algo is None:
+    if algolist is None:
         print('No se ha especificado un algoritmo de hash.')
         return False
-    
-    if algo not in ['md5', 'sha1', 'sha256']:
-        print(f"El algoritmo '{algo}' no es válido.", file=sys.stderr)
-        print(f"Algoritmos válidos: {hashlib.algorithms_guaranteed}.", file=sys.stderr)
+
+    if not any(_is_valid_algorithm(algorithm) for algorithm in algolist):
+        print('No hay ningún algoritmo válido en la lista proporcionada.', file=sys.stderr)
         return False
     
     return True
