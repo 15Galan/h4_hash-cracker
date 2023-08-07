@@ -29,6 +29,14 @@ def __get_input():
 
 
 def get_args():
+    """
+    Obtiene los argumentos de entrada del programa si estos son válidos,
+    junto a otros datos adicionales para mejorar el funcionamiento del programa.
+    Combina los hashes de un fichero y de una lista en un único objeto.
+    Añade un nuevo valor para aquellos hashes que no sean válidos.
+
+    :return:    Diccionario con los argumentos de entrada del programa.
+    """
     args = __get_input()
 
     if not __valid_args(args):
@@ -47,7 +55,7 @@ def __valid_args(args):
     """
     Comprueba los argumentos de entrada del programa.
 
-    :param args: Argumentos de entrada del programa.
+    :param args:    Argumentos de entrada del programa.
     """
     return ((__is_valid_hashlist(args.hashlist)
             or __is_valid_hashfile(args.hashfile))
@@ -60,7 +68,10 @@ def __is_valid_hash(hash: str) -> bool:
     Comprueba si un hash es válido.
     Se considera válido
 
-    :param hash: Hash a comprobar.
+    :param hash:    Hash a comprobar.
+
+    :return:    True si el hash es válido;
+                False en caso contrario.
     """
     # Longitudes de los hashes garantizados (hashlib.algorithms_guaranteed)
     guaranteed_len = [32, 40, 48, 56, 64, 96, 128]
@@ -78,6 +89,9 @@ def __is_valid_hashlist(hashes: list[str]) -> bool:
     Comprueba si una lista de hashes contiene al menos un hash válido.
 
     :param hashes: Lista de hashes a comprobar.
+
+    :return:    True si la lista contiene al menos un hash válido;
+                False en caso contrario.
     """
     if hashes is None:
         print('No se ha especificado ningún hash.', file=sys.stderr)
@@ -92,6 +106,9 @@ def __is_valid_hashfile(file: str) -> bool:
     Comprueba si un fichero con hashes contiene al menos un hash válido.
 
     :param hash: Hash a comprobar.
+
+    :return:    True si el fichero contiene al menos un hash válido;
+                False en caso contrario.
     """
     if file is None:
         print('No se ha especificado un fichero de hashes.', file=sys.stderr)
@@ -113,6 +130,9 @@ def __is_valid_algorithm(algo: str) -> bool:
     Comprueba si un algoritmo de hash es válido.
 
     :param algo: Algoritmo de hash a comprobar.
+
+    :return:    True si el algoritmo es válido;
+                False en caso contrario.
     """
     if algo is None:
         print('No se ha especificado un algoritmo de hash.')
@@ -133,6 +153,9 @@ def __is_valid_wordlist(wordlist: str) -> bool:
     Comprueba si un fichero de palabras es válido.
 
     :param wordlist: Fichero de palabras a comprobar.
+
+    :return:    True si el fichero es válido;
+                False en caso contrario.
     """
     if wordlist is None:
         print('No se ha especificado un fichero de palabras.', file=sys.stderr)
@@ -153,6 +176,8 @@ def __merge_hashes(hashlist: list[str], hashfile: str) -> set[str]:
 
     :param hashlist:    Lista de hashes.
     :param hashfile:    Fichero de hashes.
+
+    :return:            Unión de los hashes de la lista y el fichero.
     """
     if hashlist is not None and hashfile is not None:
         list_hashes = set(hashlist)
