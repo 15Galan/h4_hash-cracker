@@ -2,7 +2,7 @@
 
 
 from src import input
-from src import hash_functions
+from src import cracker
 
 
 def main():
@@ -11,7 +11,7 @@ def main():
     """
     args = input.get_args()
 
-    cracked = hash_functions.crack(args['hashes'], args['algorithms'], args['words'])
+    cracked = cracker.crack(args['hashes'], args['algorithms'], args['words'])
 
     if cracked is None:
         print('No se encontró un hash para la lista de palabras.')

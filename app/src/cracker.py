@@ -6,12 +6,14 @@ import hashlib
 import sys
 
 
-def hash_any(string: str, algo: str) -> str:
+def hash_generic(string: str, algo: str) -> str:
     """
     Calcula el hash de una cadena usando un algoritmo determinado.
 
     :param string:  Cadena a la que se le calculará el hash.
     :param algo:    Algoritmo de hash a usar.
+
+    :return:    Hash de la cadena.
     """
     hasher = hashlib.new(algo)
     
@@ -33,6 +35,8 @@ def crack(hashes: list, algorithm: str, wordlist: str) -> dict[str, str]:
     :param hashes:      Hashes a crackear.
     :param algorithm:   Algoritmo de hash a usar.
     :param wordlist:    Fichero de palabras a usar.
+
+    :return:    Diccionario con los hashes crackeados.
     """
     with open(wordlist, 'r') as file:       # Leer el fichero de palabras
         words = file.read().splitlines()    # y separarlas por líneas
@@ -41,7 +45,7 @@ def crack(hashes: list, algorithm: str, wordlist: str) -> dict[str, str]:
 
     for hash in hashes:
         for word in words:
-            crack = hash_any(word, algorithm)
+            crack = hash_generic(word, algorithm)
 
             print(f"{hash} : {word}\r", end='')
 
