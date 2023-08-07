@@ -11,13 +11,15 @@ def main():
     """
     args = input.get_args()
 
-    if not input.valid_args(args):
-        exit(1)
-
-    cracked = hash_functions.crack(args.hash, args.algo, args.wordlist)
+    cracked = hash_functions.crack(args['hashes'], args['algorithms'], args['words'])
 
     if cracked is None:
         print('No se encontró un hash para la lista de palabras.')
+
+    if args['invalid_hashes']:
+        print()
+        for hash in args['invalid_hashes']:
+            print(f"{hash} - inválido")
 
 
 if __name__ == '__main__':

@@ -53,25 +53,33 @@ def hash_any(string: str, algo: str) -> str:
     return hash
 
 
-def crack(hash: str, algo: str, wordlist: str) -> str:
+def crack(hashes: list, algorithm: str, wordlist: str) -> dict[str, str]:
     """
     Crackea un hash usando un algoritmo y una lista de palabras determinados.
 
-    :param hash:        Hash a crackear.
-    :param algo:        Algoritmo de hash a usar.
+    :param hashes:      Hashes a crackear.
+    :param algorithm:   Algoritmo de hash a usar.
     :param wordlist:    Fichero de palabras a usar.
     """
     with open(wordlist, 'r') as file:       # Leer el fichero de palabras
         words = file.read().splitlines()    # y separarlas por líneas
 
-    crack = None    # Hash crackeado (auxiliar)
+    cracks = {}
 
-    for word in words:
-        crack = hash_any(word, algo)
+    for hash in hashes:
+        for word in words:
+            crack = hash_any(word, algorithm)
 
-        if hash == crack:
-            print(f"{hash} : {word}")
+            print(f"{hash} : {word}\r", end='')
 
-            break   # Forzar la salida del bucle
+            if crack == hash:
+                cracks[hash] = word
+                break
 
-    return crack
+        if cracks.get(hash) is not None:
+            print(f'{hash} : {cracks[hash]}')
+
+        else:
+            print(f'{hash} : no encontrado')
+
+    return cracks
