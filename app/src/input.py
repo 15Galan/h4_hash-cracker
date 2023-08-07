@@ -51,9 +51,9 @@ def __valid_args(args):
             and __is_valid_wordlist(args.wordlist))
 
 
-def __is_valid_hashlist(hashes: str) -> bool:
+def __is_valid_hashlist(hashes: list[str]) -> bool:
     """
-    Comprueba si una lista de hashes es válida.
+    Comprueba si una lista de hashes contiene al menos un hash válido.
 
     :param hashes: Lista de hashes a comprobar.
     """
@@ -82,7 +82,7 @@ def __is_valid_hashlist(hashes: str) -> bool:
 
 def __is_valid_hashfile(file: str) -> bool:
     """
-    Comprueba si una lista de hashes contiene al menos un hash válido.
+    Comprueba si un fichero con hashes contiene al menos un hash válido.
 
     :param hash: Hash a comprobar.
     """
@@ -138,7 +138,7 @@ def __is_valid_wordlist(wordlist: str) -> bool:
     return True
 
 
-def __merge_hashes(hashlist: list, hashfile: str) -> list:
+def __merge_hashes(hashlist: list[str], hashfile: str) -> set[str]:
     """
     Combina los hashes de una lista literal con los de un fichero.
 
