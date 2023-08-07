@@ -22,8 +22,8 @@ def _get_input():
                         help='Fichero con hashes para crackear.')
     parser.add_argument('-ag', '--algorithm', metavar='algoritmo', type=str,
                         help='Algoritmo del hash a crackear.')
-    parser.add_argument('-wl', '--wordlist', metavar='palabras', type=str,
-                        help='Fichero de palabras a usar (posibles valores de un hash).')
+    parser.add_argument('-wl', '--wordlist', metavar='palabras', type=os.path.abspath,
+                        help='Fichero con posibles valores de un hash.')
     
     return parser.parse_args()
 
