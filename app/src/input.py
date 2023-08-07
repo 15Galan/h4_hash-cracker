@@ -78,7 +78,6 @@ def __is_valid_hash(hash: str) -> bool:
     hexademical = '0123456789abcdefABCDEF'
 
     if len(hash) not in guaranteed_len or not all(c in hexademical for c in hash):
-        print(f"{hash} : inválido", file=sys.stderr)
         return False
 
     return True
