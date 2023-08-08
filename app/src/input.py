@@ -79,9 +79,9 @@ def _is_valid_hash(hash: str) -> bool:
     """
     # Longitudes de los hashes garantizados (hashlib.algorithms_guaranteed)
     guaranteed_len = [32, 40, 48, 56, 64, 96, 128]
-    hexademical = '0123456789abcdefABCDEF'
+    hexadecimal = '0123456789abcdefABCDEF'
 
-    if len(hash) not in guaranteed_len or not all(c in hexademical for c in hash):
+    if len(hash) not in guaranteed_len or not all(c in hexadecimal for c in hash):
         return False
 
     return True
