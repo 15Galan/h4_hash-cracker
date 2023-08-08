@@ -28,12 +28,12 @@ def hash_generic(string: str, algo: str) -> str:
     return hash
 
 
-def crack(hashes: list[str], algorithm: list[str], wordlist: str) -> dict[str, tuple[str, str]]:
+def crack(hashes: list[str], algorithms: list[str], wordlist: str) -> dict[str, tuple[str, str]]:
     """
     Crackea un hash usando un algoritmo y una lista de palabras determinados.
 
     :param hashes:      Hashes a crackear.
-    :param algorithm:   Algoritmos de hash a usar.
+    :param algorithms:  Algoritmos de hash a usar.
     :param wordlist:    Fichero de palabras a usar.
 
     :return:    Diccionario con los hashes crackeados.
@@ -44,7 +44,7 @@ def crack(hashes: list[str], algorithm: list[str], wordlist: str) -> dict[str, t
     cracks = {}     # Estructura del diccionario '{hash: (palabra, algoritmo)}'
 
     for hash in sorted(hashes):
-        for algo in sorted(algorithm):
+        for algo in sorted(algorithms):
             for word in words:
                 crack = hash_generic(word, algo)    # Hash de la palabra (intento)
 
