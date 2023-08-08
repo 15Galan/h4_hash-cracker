@@ -17,13 +17,13 @@ def _get_input():
     
     # Argumentos del programa
     parser.add_argument('-hl', '--hashlist', metavar='hash', type=str, nargs='+',
-                        help='Lista de hashes para crackear.')
+                        help='hash(es) to crack')
     parser.add_argument('-hf', '--hashfile', metavar='hashfile', type=os.path.abspath,
-                        help='Fichero con hashes para crackear.')
-    parser.add_argument('-ag', '--algolist', metavar='algoritmo', type=str, nargs='+',
-                        help='Algoritmos para crackear el hash.')
-    parser.add_argument('-wl', '--wordlist', metavar='palabras', type=os.path.abspath,
-                        help='Fichero con posibles valores de un hash.')
+                        help='file with hashes to crack')
+    parser.add_argument('-ag', '--algolist', metavar='algorithm', type=str, nargs='+',
+                        help='algorithm(s) to crack the hashes')
+    parser.add_argument('-wl', '--wordlist', metavar='wordlist', type=os.path.abspath,
+                        help='file with possible values of a hash')
     
     return parser.parse_args()
 
