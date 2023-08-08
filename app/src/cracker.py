@@ -45,7 +45,7 @@ def crack(hashes: list[str], algorithms: list[str], words: list[str]) -> dict[st
             for word in words:
                 crack = hash_generic(word, algo)    # Hash de la palabra (intento)
 
-                print(f"{hash} : {word}\t({algo})\r", end='')
+                # print(f"{hash} : {word}\t({algo})\r", end='')
 
                 if crack == hash:
                     cracks[hash] = (word, algo)     # Almacenar el hash crackeado
