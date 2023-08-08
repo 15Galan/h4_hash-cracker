@@ -215,7 +215,7 @@ def separate_hashes(hashes: set[str]) -> (set[str], set[str]):
 
     :return:    Tupla con 2 conjuntos de hashes: válidos e inválidos.
     """
-    valids = [hash for hash in hashes if _is_valid_hash(hash)]
+    valids = set([h for h in hashes if _is_valid_hash(h)])
     invalids = hashes.difference(valids)
 
     return valids, invalids
