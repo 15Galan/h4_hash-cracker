@@ -28,19 +28,16 @@ def hash_generic(string: str, algo: str) -> str:
     return hash
 
 
-def crack(hashes: list[str], algorithms: list[str], wordlist: str) -> dict[str, tuple[str, str]]:
+def crack(hashes: list[str], algorithms: list[str], words: list[str]) -> dict[str, tuple[str, str]]:
     """
     Crackea un hash usando un algoritmo y una lista de palabras determinados.
 
     :param hashes:      Hashes a crackear.
     :param algorithms:  Algoritmos de hash a usar.
-    :param wordlist:    Fichero de palabras a usar.
+    :param words:       Fichero de palabras a usar.
 
     :return:    Diccionario con los hashes crackeados.
     """
-    with open(wordlist, 'r') as file:       # Leer el fichero de palabras
-        words = file.read().splitlines()    # y separarlas por líneas
-
     cracks = {}     # Estructura del diccionario '{hash: (palabra, algoritmo)}'
 
     for hash in sorted(hashes):
