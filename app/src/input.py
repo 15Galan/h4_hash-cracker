@@ -67,10 +67,12 @@ def _valid_args(args):
 
 def _is_valid_hash(hash: str) -> bool:
     """
-    Comprueba si un hash es válido.
-    Se considera válido
+    Comprueba si un hash es válido, siendo válido si tiene una longitud
+    acorde al resultado de algún algoritmo de hash y si está en hexadecimal.
 
-    :param hash:    Hash a comprobar.
+    Se usan los algoritmos garantizados por hashlib.
+
+    :param hash:    Hash.
 
     :return:    True si el hash es válido;
                 False en caso contrario.
@@ -103,7 +105,7 @@ def _is_valid_hashlist(hashes: list[str]) -> bool:
     """
     Comprueba si una lista de hashes contiene al menos un hash válido.
 
-    :param hashes: Lista de hashes a comprobar.
+    :param hashes:  Lista de hashes.
 
     :return:    True si la lista contiene al menos un hash válido;
                 False en caso contrario.
@@ -123,7 +125,7 @@ def _is_valid_hashfile(file: str) -> bool:
     """
     Comprueba si un fichero con hashes contiene al menos un hash válido.
 
-    :param hash: Hash a comprobar.
+    :param hash:    Fichero con hashes.
 
     :return:    True si el fichero contiene al menos un hash válido;
                 False en caso contrario.
@@ -136,6 +138,7 @@ def _is_valid_hashfile(file: str) -> bool:
         print(f"El fichero '{file}' no existe.", file=sys.stderr)
         return False
 
+    # Abrir el fichero para validar su contenido
     with open(file, 'r') as f:
         hashes = f.read().splitlines()
 
@@ -170,7 +173,7 @@ def _is_valid_wordlist(wordlist: str) -> bool:
     """
     Comprueba si un fichero de palabras es válido.
 
-    :param wordlist: Fichero de palabras a comprobar.
+    :param wordlist:    Fichero de palabras a comprobar.
 
     :return:    True si el fichero es válido;
                 False en caso contrario.
