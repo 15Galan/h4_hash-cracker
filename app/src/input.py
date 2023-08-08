@@ -28,6 +28,23 @@ def _get_input():
     return parser.parse_args()
 
 
+def _normalize_input(args):
+    """
+    Normaliza los argumentos de entrada del programa.
+
+    :param args:    Argumentos de entrada del programa.
+
+    :return:    Argumentos de entrada normalizados.
+    """
+    if args.hashlist is not None:
+        args.hashlist = [hash.lower() for hash in args.hashlist]
+
+    if args.algolist is not None:
+        args.algolist = [algo.lower() for algo in args.algolist]
+
+    return args
+
+
 def get_args():
     """
     Obtiene los argumentos de entrada del programa si estos son válidos,
@@ -37,7 +54,7 @@ def get_args():
 
     :return:    Diccionario con los argumentos de entrada del programa.
     """
-    args = _get_input()
+    args = _normalize_input(_get_input())
 
     if not _valid_args(args):
         exit(1)
