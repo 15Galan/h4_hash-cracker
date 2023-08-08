@@ -1,4 +1,4 @@
-#!/bin/python
+#!/bin/env python3.9
 
 
 from src import input
