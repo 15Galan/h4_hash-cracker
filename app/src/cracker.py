@@ -28,12 +28,12 @@ def hash_generic(string: str, algo: str) -> str:
     return hash
 
 
-def crack(hashes: list, algorithm: str, wordlist: str) -> dict[str, str]:
+def crack(hashes: list[str], algorithm: list[str], wordlist: str) -> dict[str, tuple[str, str]]:
     """
     Crackea un hash usando un algoritmo y una lista de palabras determinados.
 
     :param hashes:      Hashes a crackear.
-    :param algorithm:   Algoritmo de hash a usar.
+    :param algorithm:   Algoritmos de hash a usar.
     :param wordlist:    Fichero de palabras a usar.
 
     :return:    Diccionario con los hashes crackeados.
@@ -41,20 +41,26 @@ def crack(hashes: list, algorithm: str, wordlist: str) -> dict[str, str]:
     with open(wordlist, 'r') as file:       # Leer el fichero de palabras
         words = file.read().splitlines()    # y separarlas por líneas
 
-    cracks = {}
+    cracks = {}     # Estructura del diccionario '{hash: (palabra, algoritmo)}'
 
-    for hash in hashes:
-        for word in words:
-            crack = hash_generic(word, algorithm)
+    for hash in sorted(hashes):
+        for algo in sorted(algorithm):
+            for word in words:
+                crack = hash_generic(word, algo)    # Hash de la palabra (intento)
 
-            print(f"{hash} : {word}\r", end='')
+                print(f"{hash} : {word}\t({algo})\r", end='')
 
-            if crack == hash:
-                cracks[hash] = word
+                if crack == hash:
+                    cracks[hash] = (word, algo)     # Almacenar el hash crackeado
+                    break
+
+            # Si se encontró un hash, no se necesita probar más algoritmos
+            if cracks.get(hash) is not None:
                 break
 
+        # Mostrar información del hash tras haber intentado crackearlo
         if cracks.get(hash) is not None:
-            print(f'{hash} : {cracks[hash]}')
+            print(f'{hash} : {cracks[hash][0]}\t({cracks[hash][1]})')
 
         else:
             print(f'{hash} * no encontrado')
