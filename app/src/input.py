@@ -207,12 +207,12 @@ def _merge_hashes(hashlist: list[str], hashfile: str) -> set[str]:
     :return:            Unión de los hashes de la lista y el fichero.
     """
     if hashlist is not None and hashfile is not None:
-        list_hashes = set(hashlist)
+        hashes = set(hashlist)
 
         with open(hashfile, 'r') as f:
             file_hashes = set(f.read().splitlines())
 
-    return list_hashes.union(file_hashes)
+    return hashes.union(file_hashes)
 
 
 def separate_hashes(hashes: set[str]) -> (set[str], set[str]):
