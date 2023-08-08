@@ -185,6 +185,14 @@ def _is_valid_wordlist(wordlist: str) -> bool:
     if not os.path.isfile(wordlist):
         print(f"El fichero '{wordlist}' no existe.", file=sys.stderr)
         return False
+
+    # Abrir el fichero para validar su contenido
+    with open(wordlist, 'r') as f:
+        words = f.read().splitlines()
+
+    if len(words) == 0:
+        print(f"El fichero '{wordlist}' está vacío.", file=sys.stderr)
+        return False
     
     return True
 
