@@ -50,7 +50,7 @@ def get_args():
             'hashes_ko': bad_hashes,
             'algorithms_ok': good_algorithms,
             'algorithms_ko': bad_algorithms,
-            'words': args.wordlist}
+            'words': get_words(args.wordlist)}
 
 
 def _valid_args(args):
@@ -241,3 +241,18 @@ def separate_algorithms(algorithms: list[str]) -> (set[str], set[str]):
     invalids = set(algorithms).difference(valids)
 
     return valids, invalids
+
+
+def get_words(wordlist: str) -> set[str]:
+    """
+    Obtiene las palabras de un fichero de palabras.
+    Elimina las palabras repetidas.
+
+    :param wordlist:    Fichero de palabras.
+
+    :return:    Conjunto de palabras.
+    """
+    with open(wordlist, 'r') as f:
+        words = f.read().splitlines()
+
+    return set(words)
