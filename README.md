@@ -2,7 +2,7 @@
     <img src=".github/readme/h4cking-pro light.png#gh-light-mode-only" alt="H4 logo (claro)" width="450" />
     <img src=".github/readme/h4cking-pro dark.png#gh-dark-mode-only" alt="H4 logo (oscuro)" width="450" />
     <p>
-        Un programa simple <i>crackear</i> hashes
+        Un programa simple para <i>crackear</i> hashes
     <p>
 </div>
 
