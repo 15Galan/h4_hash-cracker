@@ -16,10 +16,13 @@ def main():
     if cracked is None:
         print('No se encontró un hash para la lista de palabras.')
 
-    if args['invalid_hashes']:
-        print()
-        for hash in args['invalid_hashes']:
-            print(f"{hash} - inválido")
+    if args['hashes_ko']:
+        print('\nHashes inválidos:')
+        print('\n'.join(args['hashes_ko']))
+
+    if args['algorithms_ko']:
+        print('\nAlgoritmos inválidos:')
+        print(', '.join(args['algorithms_ko']))
 
 
 if __name__ == '__main__':
