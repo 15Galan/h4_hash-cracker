@@ -76,8 +76,7 @@ def _valid_args(args):
 
     :param args:    Argumentos de entrada del programa.
     """
-    return ((_is_valid_hashlist(args.hashlist)
-             or _is_valid_hashfile(args.hashfile))
+    return ((_is_valid_hashlist(args.hashlist) or _is_valid_hashfile(args.hashfile))
             and _is_valid_algolist(args.algolist)
             and _is_valid_wordlist(args.wordlist))
 
