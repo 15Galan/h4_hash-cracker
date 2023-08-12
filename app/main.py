@@ -1,5 +1,6 @@
 #!/bin/env python3.9
 
+import sys
 
 from src import input
 from src import cracker
@@ -37,7 +38,7 @@ if __name__ == '__main__':
         pass
 
     except Exception as e:
-        print(e)
+        print(e, file=sys.stderr)
         exit(1)
 
     exit(0)
