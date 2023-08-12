@@ -11,11 +11,6 @@ def main():
     """
     args = input.get_args()
 
-    cracked = cracker.crack(args['hashes_ok'], args['algorithms_ok'], args['words'])
-
-    if cracked is None:
-        print('No se encontró un hash para la lista de palabras.')
-
     if args['hashes_ko']:
         print('\nHashes inválidos:')
         print('\n'.join(args['hashes_ko']))
@@ -23,6 +18,12 @@ def main():
     if args['algorithms_ko']:
         print('\nAlgoritmos inválidos:')
         print(', '.join(args['algorithms_ko']))
+
+    if args['hashes_ok'] or args['algorithms_ok']:
+        cracked = cracker.crack(args['hashes_ok'], args['algorithms_ok'], args['words'])
+
+        if cracked is None:
+            print('No se encontró un hash para la lista de palabras.')
 
 
 if __name__ == '__main__':
