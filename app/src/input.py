@@ -76,7 +76,7 @@ def _valid_args(args):
 
     :param args:    Argumentos de entrada del programa.
     """
-    return ((_is_valid_hashlist(args.hashlist) or _is_valid_hashfile(args.hashfile))
+    return (_are_valid_hashes(args.hashlist, args.hashfile)
             and _is_valid_algolist(args.algolist)
             and _is_valid_wordlist(args.wordlist))
 
@@ -112,12 +112,8 @@ def _is_valid_hashlist(hashes: list[str]) -> bool:
     :return:    True si la lista contiene al menos un hash válido;
                 False en caso contrario.
     """
-    if hashes is None:
-        print('No se ha especificado ningún hash.', file=sys.stderr)
-        return False
-
     if not any(_is_valid_hash(hash) for hash in hashes):
-        print('No hay ningún fichero válido en la lista proporcionada.', file=sys.stderr)
+        print('No hay ningún hash válido en la lista proporcionada.', file=sys.stderr)
         return False
 
     return True
@@ -127,15 +123,11 @@ def _is_valid_hashfile(file: str) -> bool:
     """
     Comprueba si un fichero con hashes contiene al menos un hash válido.
 
-    :param hash:    Fichero con hashes.
+    :param file:    Fichero con hashes.
 
     :return:    True si el fichero contiene al menos un hash válido;
                 False en caso contrario.
     """
-    if file is None:
-        print('No se ha especificado un fichero de hashes.', file=sys.stderr)
-        return False
-
     if not os.path.isfile(file):
         print(f"El fichero '{file}' no existe.", file=sys.stderr)
         return False
@@ -149,6 +141,40 @@ def _is_valid_hashfile(file: str) -> bool:
         return False
 
     return True
+
+
+def _are_valid_hashes(hashes: list[str], file: str) -> bool:
+    """
+    Comprueba si una lista de hashes y un fichero de hashes contienen al menos
+    un hash válido.
+
+    :param hashes:  Lista de hashes.
+    :param file:    Fichero con hashes.
+
+    :return:    True si la lista o el fichero contienen al menos un hash válido;
+                False en caso contrario.
+    """
+    _list, _file = True, True
+
+    # No se ha especificado ningún hash (ni lista, ni fichero)
+    if hashes is None and file is None:
+        print('No se ha especificado ningún hash.', file=sys.stderr)
+        return False
+
+    # Se ha especificado uno o más hashes (lista o fichero)
+    if hashes:
+        _list = _is_valid_hashlist(hashes)
+
+        if not _list and file is None:
+            print('La lista no contiene hashes válidos.', file=sys.stderr)
+
+    if file:
+        _file = _is_valid_hashfile(file)
+
+        if not _file and hashes is None:
+            print('El fichero no contiene hashes válidos.', file=sys.stderr)
+
+    return _list or _file
 
 
 def _is_valid_algorithm(algorithm: str) -> bool:
