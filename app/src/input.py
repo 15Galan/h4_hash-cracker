@@ -103,20 +103,6 @@ def _is_valid_hash(hash: str) -> bool:
     return True
 
 
-def _is_valid_algorithm(algorithm: str) -> bool:
-    """
-    Comprueba si un algoritmo de hash es válido, siendo válido si está
-    garantizado por hashlib.
-
-    :param algorithm:   Algoritmo de hash.
-
-    :return:    True si el algoritmo es válido;
-                False en caso contrario.
-    """
-    # Comparación en minúsculas para evitar errores
-    return algorithm.lower() in [a.lower() for a in hashlib.algorithms_guaranteed]
-
-
 def _is_valid_hashlist(hashes: list[str]) -> bool:
     """
     Comprueba si una lista de hashes contiene al menos un hash válido.
@@ -163,7 +149,21 @@ def _is_valid_hashfile(file: str) -> bool:
         return False
 
     return True
-    
+
+
+def _is_valid_algorithm(algorithm: str) -> bool:
+    """
+    Comprueba si un algoritmo de hash es válido, siendo válido si está
+    garantizado por hashlib.
+
+    :param algorithm:   Algoritmo de hash.
+
+    :return:    True si el algoritmo es válido;
+                False en caso contrario.
+    """
+    # Comparación en minúsculas para evitar errores
+    return algorithm.lower() in [a.lower() for a in hashlib.algorithms_guaranteed]
+
     
 def _is_valid_algolist(algolist: list[str]) -> bool:
     """
