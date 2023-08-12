@@ -81,12 +81,6 @@ python3.9 app/main.py <args>
 ```
 
 ```text
-1d616f28163414582ba7e2eb400485b9 : srgalan  (md5)
-358169735b397d125511972057478501 * no encontrado
-7b4bf604ff3032c625532a803eaedddc : H4CKINGPRO   (md5)
-c06ed8affb5cdfab49fd531429fe1929 : sleepy_rafa  (md5)
-e772e0266541435a1b52df6bb498cb62e6749c95e59b580d71c9fb16b4125af9 : srgalan  (sha256)
-
 Hashes inválidos:
 d616f28163414582ba7e2eb400485b9
 2378648237
@@ -94,6 +88,13 @@ d616f28163414582ba7e2eb400485b9
 
 Algoritmos inválidos:
 md8, sha420
+
+Hashes válidos:
+1d616f28163414582ba7e2eb400485b9 : srgalan  (md5)
+358169735b397d125511972057478501 * no encontrado
+7b4bf604ff3032c625532a803eaedddc : H4CKINGPRO   (md5)
+c06ed8affb5cdfab49fd531429fe1929 : sleepy_rafa  (md5)
+e772e0266541435a1b52df6bb498cb62e6749c95e59b580d71c9fb16b4125af9 : srgalan  (sha256)
 ```
 
 ## Argumentos
