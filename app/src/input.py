@@ -255,7 +255,12 @@ def _merge_hashes(hashlist: list[str], hashfile: str) -> set[str]:
 
     if hashfile is not None:
         with open(hashfile, 'r') as f:
-            file_hashes = set(f.read().splitlines())    # TODO: líneas vacías como ' " '
+            file_hashes = set(line.strip() for line in f if line.strip())
+
+            # Se itera sobre cada línea del fichero.
+            # Se ajusta el contenido de la línea con 'strip()'.
+            # Se añade al conjunto si el contenido no es una cadena vacía.
+            #   El contenido de una línea vacía es '' (cadena vacía).
 
     return list_hashes.union(file_hashes)
 
